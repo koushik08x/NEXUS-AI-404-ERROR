@@ -1,0 +1,501 @@
+<```html <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>NEXUS AI | 404 ERROR</title>
+
+        <style>
+            * {
+                box-sizing: border-box
+            }
+
+            body {
+                margin: 0;
+                background: #080d18;
+                color: #eaf1ff;
+                font: 15px Arial, sans-serif
+            }
+
+            header {
+                padding: 22px 5%;
+                border-bottom: 1px solid #26334d;
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 10px
+            }
+
+            .logo {
+                font-size: 22px;
+                font-weight: 800;
+                letter-spacing: 2px;
+                color: #65e5d3
+            }
+
+            .tag,
+            .muted {
+                color: #9aabc7
+            }
+
+            main {
+                max-width: 1100px;
+                margin: 35px auto;
+                padding: 0 20px
+            }
+
+            .hero {
+                margin-bottom: 25px
+            }
+
+            h1 {
+                font-size: 36px;
+                margin: 8px 0
+            }
+
+            .grid {
+                display: grid;
+                grid-template-columns: 2fr 1fr;
+                gap: 18px
+            }
+
+            .card {
+                background: #111a2b;
+                border: 1px solid #263653;
+                border-radius: 15px;
+                padding: 20px;
+                margin-bottom: 18px
+            }
+
+            input,
+            textarea {
+                width: 100%;
+                background: #080f1d;
+                border: 1px solid #344563;
+                border-radius: 9px;
+                padding: 14px;
+                color: white;
+                font: inherit
+            }
+
+            button {
+                background: #65e5d3;
+                color: #07121d;
+                border: 0;
+                border-radius: 9px;
+                padding: 12px 18px;
+                font-weight: bold;
+                cursor: pointer;
+                margin-top: 12px
+            }
+
+            button:disabled {
+                opacity: .5;
+                cursor: wait
+            }
+
+            .secondary {
+                background: #294b70;
+                color: white
+            }
+
+            .pill {
+                display: inline-block;
+                padding: 6px 10px;
+                border-radius: 20px;
+                background: #203c48;
+                color: #8df3df;
+                font-size: 12px
+            }
+
+            .log {
+                padding: 10px 0;
+                border-bottom: 1px solid #26334d;
+                color: #b9c8df
+            }
+
+            .task {
+                padding: 12px;
+                margin: 10px 0;
+                background: #0b1424;
+                border: 1px solid #263653;
+                border-radius: 9px
+            }
+
+            .task-title {
+                font-weight: bold
+            }
+
+            .task small {
+                display: block;
+                color: #9aabc7;
+                margin-top: 6px
+            }
+
+            .done {
+                color: #65e5d3
+            }
+
+            .chat-output {
+                background: #080f1d;
+                border: 1px solid #344563;
+                border-radius: 10px;
+                padding: 14px;
+                margin-top: 15px;
+                white-space: pre-wrap;
+                overflow-wrap: anywhere;
+                min-height: 55px
+            }
+
+            .stats {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px
+            }
+
+            .stat {
+                background: #080f1d;
+                padding: 15px;
+                border-radius: 10px;
+                text-align: center
+            }
+
+            .stat strong {
+                display: block;
+                font-size: 25px;
+                margin-bottom: 5px
+            }
+
+            @media(max-width:750px) {
+                .grid {
+                    grid-template-columns: 1fr
+                }
+
+                h1 {
+                    font-size: 29px
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <header>
+            <div class="logo">NEXUS AI</div>
+            <div class="tag">404 ERROR · Track 1: Make MCP Matter</div>
+        </header>
+
+        <main>
+
+            <section class="hero">
+                <span class="pill">MCP-POWERED PERSONAL INTELLIGENCE</span>
+                <h1>Your goals. <span style="color:#65e5d3">Connected.</span></h1>
+                <div class="muted">Turn natural-language commands into real MCP task execution.</div>
+            </section>
+
+            <div class="grid">
+
+                <section>
+
+                    <div class="card">
+                        <h2>🧠 NEXUS AI Command Center</h2>
+                        <p class="muted">Tell NEXUS what you want to do.</p>
+
+                        <textarea id="command" rows="3"
+                            placeholder="Example: Create a task to prepare tomorrow's presentation..."></textarea>
+
+                        <button id="sendBtn" onclick="sendCommand()">Execute Command →</button>
+
+                        <div id="response" class="chat-output muted">
+                            NEXUS is ready. Waiting for your command.
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h2>📋 Your Tasks</h2>
+                        <button class="secondary" onclick="refreshWorkspace()">↻ Refresh</button>
+                        <div id="tasks" class="muted">Loading tasks...</div>
+                    </div>
+
+                    <div class="card">
+                        <h2>⚡ Workspace Overview</h2>
+                        <div class="stats">
+                            <div class="stat"><strong id="total">0</strong><span class="muted">Total</span></div>
+                            <div class="stat"><strong id="completed">0</strong><span class="muted">Completed</span>
+                            </div>
+                            <div class="stat"><strong id="pending">0</strong><span class="muted">Pending</span></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h2>Workflow Plan</h2>
+                        <p class="muted">Generate a basic demonstration plan.</p>
+                        <textarea id="goal" rows="3" placeholder="Enter a goal..."></textarea>
+                        <button onclick="plan()">Generate workflow</button>
+                        <ol id="steps">
+                            <li class="muted">Your plan will appear here.</li>
+                        </ol>
+                        <button onclick="approve()">Approve demo workflow</button>
+                    </div>
+
+                    <div class="card">
+                        <h2>🎙️ Meeting Intelligence</h2>
+                        <textarea id="transcript" rows="4" placeholder="Paste meeting transcript here..."></textarea>
+                        <button onclick="summarize()">Extract decisions & action items</button>
+                        <div id="meeting" class="muted"></div>
+                    </div>
+
+                </section>
+
+                <aside>
+
+                    <div class="card">
+                        <h2>MCP Connections</h2>
+                        <div class="log">Task Manager MCP <span class="pill">CONNECTED</span></div>
+                        <div class="log">FastAPI Bridge <span class="pill">ONLINE</span></div>
+                        <div class="log">Natural Language Engine <span class="pill">ACTIVE</span></div>
+                        <div class="log">Human-in-the-loop <span class="pill">DEMO</span></div>
+                        <p class="muted">Calendar, email and live meeting integrations are planned extensions, not
+                            active connections.</p>
+                    </div>
+
+                    <div class="card">
+                        <h2>Activity Log</h2>
+                        <div id="activity" class="log">NEXUS initialized.</div>
+                    </div>
+
+                    <div class="card">
+                        <h2>Prototype Status</h2>
+                        <p class="muted">Real MCP task creation, listing, status and completion are connected. Workflow
+                            approval and transcript analysis are demonstration features.</p>
+                    </div>
+
+                </aside>
+            </div>
+        </main>
+
+        <script>
+            const API = "http://127.0.0.1:8000";
+
+            function log(message) {
+                const activity = document.getElementById("activity");
+                const entry = document.createElement("div");
+                entry.className = "log";
+                entry.textContent = new Date().toLocaleTimeString() + " — " + message;
+                activity.prepend(entry);
+            }
+
+            function showResponse(message) {
+                document.getElementById("response").textContent = message;
+            }
+
+            async function apiRequest(path, options = {}) {
+                const response = await fetch(API + path, {
+                    ...options,
+                    headers: {
+                        "Content-Type": "application/json",
+                        ...(options.headers || {})
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error("Backend returned HTTP " + response.status);
+                }
+
+                return response.json();
+            }
+
+            async function sendCommand() {
+                const input = document.getElementById("command");
+                const button = document.getElementById("sendBtn");
+                const command = input.value.trim();
+
+                if (!command) {
+                    showResponse("Please enter a command first.");
+                    return;
+                }
+
+                button.disabled = true;
+                button.textContent = "Executing...";
+
+                try {
+                    const data = await apiRequest("/api/command", {
+                        method: "POST",
+                        body: JSON.stringify({command})
+                    });
+
+                    let message = data.message || "Command processed.";
+
+                    if (data.result !== undefined) {
+                        message += "\n\nResult:\n" + JSON.stringify(data.result, null, 2);
+                    }
+
+                    showResponse(message);
+                    log("Command executed: " + command);
+
+                    await refreshWorkspace();
+
+                } catch (error) {
+                    showResponse("Command failed: " + error.message);
+                    log("Command execution failed.");
+                } finally {
+                    button.disabled = false;
+                    button.textContent = "Execute Command →";
+                }
+            }
+
+            async function refreshWorkspace() {
+                try {
+                    const [tasks, status] = await Promise.all([
+                        apiRequest("/api/tasks"),
+                        apiRequest("/api/status")
+                    ]);
+
+                    renderTasks(tasks);
+
+                    document.getElementById("total").textContent = status.total_tasks ?? 0;
+                    document.getElementById("completed").textContent = status.completed ?? 0;
+                    document.getElementById("pending").textContent = status.pending ?? 0;
+
+                } catch (error) {
+                    document.getElementById("tasks").textContent =
+                        "Unable to connect to NEXUS backend: " + error.message;
+                }
+            }
+
+            function renderTasks(tasks) {
+                const container = document.getElementById("tasks");
+                container.replaceChildren();
+
+                if (!Array.isArray(tasks) || tasks.length === 0) {
+                    container.textContent = "No tasks yet. Create one using NEXUS Command Center.";
+                    return;
+                }
+
+                tasks.forEach(task => {
+                    const card = document.createElement("div");
+                    card.className = "task";
+
+                    const title = document.createElement("div");
+                    title.className = "task-title";
+                    title.textContent = task.title;
+
+                    const description = document.createElement("small");
+                    description.textContent = task.description || "No description";
+
+                    const status = document.createElement("small");
+                    status.className = task.completed ? "done" : "";
+                    status.textContent = task.completed ? "✓ COMPLETED" : "● PENDING";
+
+                    card.append(title, description, status);
+
+                    if (!task.completed) {
+                        const button = document.createElement("button");
+                        button.className = "secondary";
+                        button.textContent = "Complete Task";
+                        button.onclick = () => completeTask(task.id);
+                        card.appendChild(button);
+                    }
+
+                    container.appendChild(card);
+                });
+            }
+
+            async function completeTask(id) {
+                try {
+                    await apiRequest("/api/complete/" + encodeURIComponent(id), {
+                        method: "POST"
+                    });
+
+                    showResponse("Task completed successfully!");
+                    log("Task completed: " + id);
+                    await refreshWorkspace();
+
+                } catch (error) {
+                    showResponse("Could not complete task: " + error.message);
+                }
+            }
+
+            function plan() {
+                const goal = document.getElementById("goal").value.trim();
+
+                if (!goal) {
+                    alert("Enter a goal first.");
+                    return;
+                }
+
+                const tasks = [
+                    "Interpret request: " + goal,
+                    "Identify relevant tools and required inputs",
+                    "Prepare proposed action plan",
+                    "Request human approval before sensitive actions",
+                    "Execute approved actions and summarize results"
+                ];
+
+                const list = document.getElementById("steps");
+                list.replaceChildren();
+
+                tasks.forEach(task => {
+                    const item = document.createElement("li");
+                    item.textContent = task;
+                    list.appendChild(item);
+                });
+
+                log("Demo workflow plan generated.");
+            }
+
+            function approve() {
+                log("Demo approval recorded. No external action performed.");
+                alert("Demo approval recorded. This does not execute external actions.");
+            }
+
+            function summarize() {
+                const transcript = document.getElementById("transcript").value.trim();
+
+                if (!transcript) {
+                    alert("Paste a transcript first.");
+                    return;
+                }
+
+                const sentences = transcript.split(/[.!?]+/).map(x => x.trim()).filter(Boolean);
+
+                const decisions = sentences.filter(x => /decid|agree|approved|will|must/i.test(x));
+                const actions = sentences.filter(x => /will|todo|action|send|prepare|follow up|complete/i.test(x));
+
+                const output = document.getElementById("meeting");
+                output.replaceChildren();
+
+                function addSection(title, items) {
+                    const heading = document.createElement("h3");
+                    heading.textContent = title;
+
+                    const paragraph = document.createElement("p");
+                    paragraph.textContent = items.length ? items.join("\n") : "No obvious items detected.";
+
+                    output.append(heading, paragraph);
+                }
+
+                addSection("Possible decisions", decisions);
+                addSection("Possible action items", actions);
+
+                const note = document.createElement("small");
+                note.textContent = "Basic browser-side heuristic. Verify manually.";
+                output.appendChild(note);
+
+                log("Transcript processed locally.");
+            }
+
+            document.getElementById("command").addEventListener("keydown", event => {
+                if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
+                    sendCommand();
+                }
+            });
+
+            refreshWorkspace();
+        </script>
+
+    </body>
+
+    </html>
+    ```
