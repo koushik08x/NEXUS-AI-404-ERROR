@@ -1,0 +1,33 @@
+# Environment and Secrets
+.env
+.env.*
+*.env
+!.env.example
+
+# SQLite and Database files
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# Python Bytecode and Caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+
+# IDE and Editor configs
+.vscode/
+.idea/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

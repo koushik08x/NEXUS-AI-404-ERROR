@@ -1,501 +1,772 @@
-<```html <!DOCTYPE html>
-    <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1">
-        <title>NEXUS AI | 404 ERROR</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>NEXUS AI | 404 ERROR - MCP Command Center</title>
 
-        <style>
-            * {
-                box-sizing: border-box
-            }
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-            body {
-                margin: 0;
-                background: #080d18;
-                color: #eaf1ff;
-                font: 15px Arial, sans-serif
-            }
+        body {
+            margin: 0;
+            background: #080d18;
+            color: #eaf1ff;
+            font: 15px Arial, sans-serif;
+        }
 
-            header {
-                padding: 22px 5%;
-                border-bottom: 1px solid #26334d;
-                display: flex;
-                justify-content: space-between;
-                flex-wrap: wrap;
-                gap: 10px
-            }
+        header {
+            padding: 22px 5%;
+            border-bottom: 1px solid #26334d;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
 
-            .logo {
-                font-size: 22px;
-                font-weight: 800;
-                letter-spacing: 2px;
-                color: #65e5d3
-            }
+        .logo {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #65e5d3;
+        }
 
-            .tag,
-            .muted {
-                color: #9aabc7
-            }
+        .tag,
+        .muted {
+            color: #9aabc7;
+        }
 
-            main {
-                max-width: 1100px;
-                margin: 35px auto;
-                padding: 0 20px
-            }
+        main {
+            max-width: 1100px;
+            margin: 35px auto;
+            padding: 0 20px;
+        }
 
-            .hero {
-                margin-bottom: 25px
+        .hero {
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: 34px;
+            margin: 8px 0;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-top: 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 18px;
+        }
+
+        .card {
+            background: #111a2b;
+            border: 1px solid #263653;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 18px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            background: #080f1d;
+            border: 1px solid #344563;
+            border-radius: 9px;
+            padding: 14px;
+            color: white;
+            font: inherit;
+        }
+
+        button {
+            background: #65e5d3;
+            color: #07121d;
+            border: 0;
+            border-radius: 9px;
+            padding: 10px 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: opacity 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        button:disabled {
+            opacity: .5;
+            cursor: wait;
+        }
+
+        .secondary {
+            background: #294b70;
+            color: white;
+        }
+
+        .danger {
+            background: #d9455f;
+            color: white;
+        }
+
+        .btn-small {
+            padding: 6px 10px;
+            font-size: 12px;
+            margin-top: 4px;
+            margin-right: 6px;
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: #203c48;
+            color: #8df3df;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .pill.active {
+            background: #1b4b3b;
+            color: #48e59b;
+        }
+
+        .pill.pending {
+            background: #503d1c;
+            color: #f7b955;
+        }
+
+        .pill.error {
+            background: #4d1c25;
+            color: #f7556b;
+        }
+
+        .log {
+            padding: 10px 0;
+            border-bottom: 1px solid #26334d;
+            color: #b9c8df;
+            font-size: 13px;
+        }
+
+        .task {
+            padding: 12px;
+            margin: 10px 0;
+            background: #0b1424;
+            border: 1px solid #263653;
+            border-radius: 9px;
+        }
+
+        .task-title {
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .task small {
+            display: block;
+            color: #9aabc7;
+            margin-top: 4px;
+        }
+
+        .done {
+            color: #65e5d3;
+        }
+
+        .chat-output {
+            background: #080f1d;
+            border: 1px solid #344563;
+            border-radius: 10px;
+            padding: 14px;
+            margin-top: 15px;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            min-height: 55px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .stat {
+            background: #080f1d;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 25px;
+            margin-bottom: 5px;
+        }
+
+        .item-box {
+            background: #0b1424;
+            border: 1px solid #263653;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 8px 0;
+        }
+
+        .action-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        @media(max-width:750px) {
+            .grid {
+                grid-template-columns: 1fr;
             }
 
             h1 {
-                font-size: 36px;
-                margin: 8px 0
+                font-size: 27px;
             }
+        }
+    </style>
+</head>
 
-            .grid {
-                display: grid;
-                grid-template-columns: 2fr 1fr;
-                gap: 18px
-            }
+<body>
 
-            .card {
-                background: #111a2b;
-                border: 1px solid #263653;
-                border-radius: 15px;
-                padding: 20px;
-                margin-bottom: 18px
-            }
-
-            input,
-            textarea {
-                width: 100%;
-                background: #080f1d;
-                border: 1px solid #344563;
-                border-radius: 9px;
-                padding: 14px;
-                color: white;
-                font: inherit
-            }
-
-            button {
-                background: #65e5d3;
-                color: #07121d;
-                border: 0;
-                border-radius: 9px;
-                padding: 12px 18px;
-                font-weight: bold;
-                cursor: pointer;
-                margin-top: 12px
-            }
-
-            button:disabled {
-                opacity: .5;
-                cursor: wait
-            }
-
-            .secondary {
-                background: #294b70;
-                color: white
-            }
-
-            .pill {
-                display: inline-block;
-                padding: 6px 10px;
-                border-radius: 20px;
-                background: #203c48;
-                color: #8df3df;
-                font-size: 12px
-            }
-
-            .log {
-                padding: 10px 0;
-                border-bottom: 1px solid #26334d;
-                color: #b9c8df
-            }
-
-            .task {
-                padding: 12px;
-                margin: 10px 0;
-                background: #0b1424;
-                border: 1px solid #263653;
-                border-radius: 9px
-            }
-
-            .task-title {
-                font-weight: bold
-            }
-
-            .task small {
-                display: block;
-                color: #9aabc7;
-                margin-top: 6px
-            }
-
-            .done {
-                color: #65e5d3
-            }
-
-            .chat-output {
-                background: #080f1d;
-                border: 1px solid #344563;
-                border-radius: 10px;
-                padding: 14px;
-                margin-top: 15px;
-                white-space: pre-wrap;
-                overflow-wrap: anywhere;
-                min-height: 55px
-            }
-
-            .stats {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 8px
-            }
-
-            .stat {
-                background: #080f1d;
-                padding: 15px;
-                border-radius: 10px;
-                text-align: center
-            }
-
-            .stat strong {
-                display: block;
-                font-size: 25px;
-                margin-bottom: 5px
-            }
-
-            @media(max-width:750px) {
-                .grid {
-                    grid-template-columns: 1fr
-                }
-
-                h1 {
-                    font-size: 29px
-                }
-            }
-        </style>
-    </head>
-
-    <body>
-
-        <header>
+    <header>
+        <div>
             <div class="logo">NEXUS AI</div>
             <div class="tag">404 ERROR · Track 1: Make MCP Matter</div>
-        </header>
+        </div>
+        <div id="backendStatus">
+            <span class="pill pending">Connecting...</span>
+        </div>
+    </header>
 
-        <main>
+    <main>
 
-            <section class="hero">
-                <span class="pill">MCP-POWERED PERSONAL INTELLIGENCE</span>
-                <h1>Your goals. <span style="color:#65e5d3">Connected.</span></h1>
-                <div class="muted">Turn natural-language commands into real MCP task execution.</div>
+        <section class="hero">
+            <span class="pill">MCP-POWERED PERSONAL INTELLIGENCE</span>
+            <h1>Your goals. <span style="color:#65e5d3">Connected.</span></h1>
+            <div class="muted">Live FastMCP tool execution, persistent SQLite database & Gemini Function Calling.</div>
+        </section>
+
+        <div class="grid">
+
+            <!-- MAIN COLUMN -->
+            <section>
+
+                <!-- COMMAND CENTER -->
+                <div class="card">
+                    <h2>🧠 NEXUS AI Command Center</h2>
+                    <p class="muted">Natural language commands converted into native Gemini MCP tool calls.</p>
+
+                    <textarea id="command" rows="3"
+                        placeholder="Try: 'Create a task to audit smart contract security' or 'Show workspace status'"></textarea>
+
+                    <button id="sendBtn" onclick="sendCommand()">Execute Command →</button>
+
+                    <div id="response" class="chat-output muted">
+                        NEXUS is ready. Enter a natural language command.
+                    </div>
+                </div>
+
+                <!-- TASKS -->
+                <div class="card">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <h2>📋 Your Tasks (SQLite Persisted)</h2>
+                        <button class="secondary btn-small" onclick="refreshWorkspace()">↻ Refresh</button>
+                    </div>
+                    <div id="tasks" class="muted">Loading tasks from SQLite...</div>
+                </div>
+
+                <!-- WORKSPACE STATS -->
+                <div class="card">
+                    <h2>⚡ Workspace Overview</h2>
+                    <div class="stats">
+                        <div class="stat"><strong id="total">0</strong><span class="muted">Total</span></div>
+                        <div class="stat"><strong id="completed">0</strong><span class="muted">Completed</span></div>
+                        <div class="stat"><strong id="pending">0</strong><span class="muted">Pending</span></div>
+                    </div>
+                </div>
+
+                <!-- MEETING INTELLIGENCE -->
+                <div class="card">
+                    <h2>🎙️ Meeting Intelligence</h2>
+                    <p class="muted">Extract summaries, decisions, and action items, then convert them directly into real MCP tasks.</p>
+                    <textarea id="transcript" rows="4" placeholder="Paste meeting transcript here..."></textarea>
+                    <button id="summarizeBtn" onclick="summarizeMeeting()">Extract Decisions & Action Items</button>
+
+                    <div id="meetingResult" style="margin-top: 15px;"></div>
+                </div>
+
+                <!-- HUMAN-IN-THE-LOOP APPROVALS -->
+                <div class="card">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <h2>🛡️ Human-in-the-Loop Approvals</h2>
+                        <button class="secondary btn-small" onclick="loadApprovals()">↻ Refresh</button>
+                    </div>
+                    <p class="muted">Sensitive operations (e.g. task deletion, bulk execution) require backend-verified approval.</p>
+                    <div id="approvalsList" class="muted">No pending approvals.</div>
+                </div>
+
             </section>
 
-            <div class="grid">
+            <!-- ASIDE COLUMN -->
+            <aside>
 
-                <section>
+                <!-- SYSTEM STATUS -->
+                <div class="card">
+                    <h2>System Connections</h2>
+                    <div class="log">FastMCP Task Server <span id="mcpBadge" class="pill pending">Connecting...</span></div>
+                    <div class="log">FastAPI Bridge <span id="apiBadge" class="pill pending">Connecting...</span></div>
+                    <div class="log">Gemini Function Calling <span id="geminiBadge" class="pill pending">Checking...</span></div>
+                    <div class="log">SQLite Database <span class="pill active">ACTIVE (nexus.db)</span></div>
+                    <p class="muted" style="font-size:12px; margin-top:10px;">Fully integrated MCP tool runtime with persistent SQLite storage.</p>
+                </div>
 
-                    <div class="card">
-                        <h2>🧠 NEXUS AI Command Center</h2>
-                        <p class="muted">Tell NEXUS what you want to do.</p>
-
-                        <textarea id="command" rows="3"
-                            placeholder="Example: Create a task to prepare tomorrow's presentation..."></textarea>
-
-                        <button id="sendBtn" onclick="sendCommand()">Execute Command →</button>
-
-                        <div id="response" class="chat-output muted">
-                            NEXUS is ready. Waiting for your command.
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <h2>📋 Your Tasks</h2>
-                        <button class="secondary" onclick="refreshWorkspace()">↻ Refresh</button>
-                        <div id="tasks" class="muted">Loading tasks...</div>
-                    </div>
-
-                    <div class="card">
-                        <h2>⚡ Workspace Overview</h2>
-                        <div class="stats">
-                            <div class="stat"><strong id="total">0</strong><span class="muted">Total</span></div>
-                            <div class="stat"><strong id="completed">0</strong><span class="muted">Completed</span>
-                            </div>
-                            <div class="stat"><strong id="pending">0</strong><span class="muted">Pending</span></div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <h2>Workflow Plan</h2>
-                        <p class="muted">Generate a basic demonstration plan.</p>
-                        <textarea id="goal" rows="3" placeholder="Enter a goal..."></textarea>
-                        <button onclick="plan()">Generate workflow</button>
-                        <ol id="steps">
-                            <li class="muted">Your plan will appear here.</li>
-                        </ol>
-                        <button onclick="approve()">Approve demo workflow</button>
-                    </div>
-
-                    <div class="card">
-                        <h2>🎙️ Meeting Intelligence</h2>
-                        <textarea id="transcript" rows="4" placeholder="Paste meeting transcript here..."></textarea>
-                        <button onclick="summarize()">Extract decisions & action items</button>
-                        <div id="meeting" class="muted"></div>
-                    </div>
-
-                </section>
-
-                <aside>
-
-                    <div class="card">
-                        <h2>MCP Connections</h2>
-                        <div class="log">Task Manager MCP <span class="pill">CONNECTED</span></div>
-                        <div class="log">FastAPI Bridge <span class="pill">ONLINE</span></div>
-                        <div class="log">Natural Language Engine <span class="pill">ACTIVE</span></div>
-                        <div class="log">Human-in-the-loop <span class="pill">DEMO</span></div>
-                        <p class="muted">Calendar, email and live meeting integrations are planned extensions, not
-                            active connections.</p>
-                    </div>
-
-                    <div class="card">
+                <!-- PERSISTENT ACTIVITY LOG -->
+                <div class="card">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
                         <h2>Activity Log</h2>
-                        <div id="activity" class="log">NEXUS initialized.</div>
+                        <button class="secondary btn-small" onclick="loadActivityLogs()">↻ Refresh</button>
                     </div>
-
-                    <div class="card">
-                        <h2>Prototype Status</h2>
-                        <p class="muted">Real MCP task creation, listing, status and completion are connected. Workflow
-                            approval and transcript analysis are demonstration features.</p>
+                    <div id="activity" style="max-height: 400px; overflow-y: auto;">
+                        <div class="log">Loading persistent logs...</div>
                     </div>
+                </div>
 
-                </aside>
-            </div>
-        </main>
+            </aside>
+        </div>
+    </main>
 
-        <script>
-            const API = "http://127.0.0.1:8000";
+    <script>
+        const API = "http://127.0.0.1:8000";
 
-            function log(message) {
-                const activity = document.getElementById("activity");
-                const entry = document.createElement("div");
-                entry.className = "log";
-                entry.textContent = new Date().toLocaleTimeString() + " — " + message;
-                activity.prepend(entry);
-            }
-
-            function showResponse(message) {
-                document.getElementById("response").textContent = message;
-            }
-
-            async function apiRequest(path, options = {}) {
-                const response = await fetch(API + path, {
-                    ...options,
-                    headers: {
-                        "Content-Type": "application/json",
-                        ...(options.headers || {})
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error("Backend returned HTTP " + response.status);
-                }
-
-                return response.json();
-            }
-
-            async function sendCommand() {
-                const input = document.getElementById("command");
-                const button = document.getElementById("sendBtn");
-                const command = input.value.trim();
-
-                if (!command) {
-                    showResponse("Please enter a command first.");
-                    return;
-                }
-
-                button.disabled = true;
-                button.textContent = "Executing...";
-
-                try {
-                    const data = await apiRequest("/api/command", {
-                        method: "POST",
-                        body: JSON.stringify({command})
-                    });
-
-                    let message = data.message || "Command processed.";
-
-                    if (data.result !== undefined) {
-                        message += "\n\nResult:\n" + JSON.stringify(data.result, null, 2);
-                    }
-
-                    showResponse(message);
-                    log("Command executed: " + command);
-
-                    await refreshWorkspace();
-
-                } catch (error) {
-                    showResponse("Command failed: " + error.message);
-                    log("Command execution failed.");
-                } finally {
-                    button.disabled = false;
-                    button.textContent = "Execute Command →";
-                }
-            }
-
-            async function refreshWorkspace() {
-                try {
-                    const [tasks, status] = await Promise.all([
-                        apiRequest("/api/tasks"),
-                        apiRequest("/api/status")
-                    ]);
-
-                    renderTasks(tasks);
-
-                    document.getElementById("total").textContent = status.total_tasks ?? 0;
-                    document.getElementById("completed").textContent = status.completed ?? 0;
-                    document.getElementById("pending").textContent = status.pending ?? 0;
-
-                } catch (error) {
-                    document.getElementById("tasks").textContent =
-                        "Unable to connect to NEXUS backend: " + error.message;
-                }
-            }
-
-            function renderTasks(tasks) {
-                const container = document.getElementById("tasks");
-                container.replaceChildren();
-
-                if (!Array.isArray(tasks) || tasks.length === 0) {
-                    container.textContent = "No tasks yet. Create one using NEXUS Command Center.";
-                    return;
-                }
-
-                tasks.forEach(task => {
-                    const card = document.createElement("div");
-                    card.className = "task";
-
-                    const title = document.createElement("div");
-                    title.className = "task-title";
-                    title.textContent = task.title;
-
-                    const description = document.createElement("small");
-                    description.textContent = task.description || "No description";
-
-                    const status = document.createElement("small");
-                    status.className = task.completed ? "done" : "";
-                    status.textContent = task.completed ? "✓ COMPLETED" : "● PENDING";
-
-                    card.append(title, description, status);
-
-                    if (!task.completed) {
-                        const button = document.createElement("button");
-                        button.className = "secondary";
-                        button.textContent = "Complete Task";
-                        button.onclick = () => completeTask(task.id);
-                        card.appendChild(button);
-                    }
-
-                    container.appendChild(card);
-                });
-            }
-
-            async function completeTask(id) {
-                try {
-                    await apiRequest("/api/complete/" + encodeURIComponent(id), {
-                        method: "POST"
-                    });
-
-                    showResponse("Task completed successfully!");
-                    log("Task completed: " + id);
-                    await refreshWorkspace();
-
-                } catch (error) {
-                    showResponse("Could not complete task: " + error.message);
-                }
-            }
-
-            function plan() {
-                const goal = document.getElementById("goal").value.trim();
-
-                if (!goal) {
-                    alert("Enter a goal first.");
-                    return;
-                }
-
-                const tasks = [
-                    "Interpret request: " + goal,
-                    "Identify relevant tools and required inputs",
-                    "Prepare proposed action plan",
-                    "Request human approval before sensitive actions",
-                    "Execute approved actions and summarize results"
-                ];
-
-                const list = document.getElementById("steps");
-                list.replaceChildren();
-
-                tasks.forEach(task => {
-                    const item = document.createElement("li");
-                    item.textContent = task;
-                    list.appendChild(item);
-                });
-
-                log("Demo workflow plan generated.");
-            }
-
-            function approve() {
-                log("Demo approval recorded. No external action performed.");
-                alert("Demo approval recorded. This does not execute external actions.");
-            }
-
-            function summarize() {
-                const transcript = document.getElementById("transcript").value.trim();
-
-                if (!transcript) {
-                    alert("Paste a transcript first.");
-                    return;
-                }
-
-                const sentences = transcript.split(/[.!?]+/).map(x => x.trim()).filter(Boolean);
-
-                const decisions = sentences.filter(x => /decid|agree|approved|will|must/i.test(x));
-                const actions = sentences.filter(x => /will|todo|action|send|prepare|follow up|complete/i.test(x));
-
-                const output = document.getElementById("meeting");
-                output.replaceChildren();
-
-                function addSection(title, items) {
-                    const heading = document.createElement("h3");
-                    heading.textContent = title;
-
-                    const paragraph = document.createElement("p");
-                    paragraph.textContent = items.length ? items.join("\n") : "No obvious items detected.";
-
-                    output.append(heading, paragraph);
-                }
-
-                addSection("Possible decisions", decisions);
-                addSection("Possible action items", actions);
-
-                const note = document.createElement("small");
-                note.textContent = "Basic browser-side heuristic. Verify manually.";
-                output.appendChild(note);
-
-                log("Transcript processed locally.");
-            }
-
-            document.getElementById("command").addEventListener("keydown", event => {
-                if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
-                    sendCommand();
+        async function apiRequest(path, options = {}) {
+            const response = await fetch(API + path, {
+                ...options,
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(options.headers || {})
                 }
             });
 
-            refreshWorkspace();
-        </script>
+            const data = await response.json().catch(() => ({}));
 
-    </body>
+            if (!response.ok) {
+                const message = data.detail || ("HTTP " + response.status);
+                throw new Error(message);
+            }
 
-    </html>
-    ```
+            return data;
+        }
+
+        function showResponse(message) {
+            document.getElementById("response").textContent = message;
+        }
+
+        // ==============================
+        // COMMAND PROCESSING
+        // ==============================
+
+        async function sendCommand() {
+            const input = document.getElementById("command");
+            const button = document.getElementById("sendBtn");
+            const command = input.value.trim();
+
+            if (!command) {
+                showResponse("Please enter a command first.");
+                return;
+            }
+
+            button.disabled = true;
+            button.textContent = "Processing with Gemini...";
+
+            try {
+                const data = await apiRequest("/api/command", {
+                    method: "POST",
+                    body: JSON.stringify({ command })
+                });
+
+                let output = "";
+                if (data.action && data.action !== "chat") {
+                    output += `🤖 Gemini Tool Call: ${data.action}\n`;
+                    if (data.function_call) {
+                        output += `Arguments: ${JSON.stringify(data.function_call, null, 2)}\n\n`;
+                    }
+                    output += `⚡ MCP Execution Result:\n${JSON.stringify(data.result, null, 2)}`;
+                } else {
+                    output = data.message || "Command executed.";
+                }
+
+                showResponse(output);
+                await refreshWorkspace();
+                await loadActivityLogs();
+
+            } catch (error) {
+                showResponse("Execution error: " + error.message);
+            } finally {
+                button.disabled = false;
+                button.textContent = "Execute Command →";
+            }
+        }
+
+        // ==============================
+        // TASKS & WORKSPACE
+        // ==============================
+
+        async function refreshWorkspace() {
+            try {
+                const [tasks, status, health] = await Promise.all([
+                    apiRequest("/api/tasks"),
+                    apiRequest("/api/status"),
+                    apiRequest("/")
+                ]);
+
+                // Update Badges
+                document.getElementById("backendStatus").innerHTML = '<span class="pill active">● Online</span>';
+                document.getElementById("apiBadge").className = "pill active";
+                document.getElementById("apiBadge").textContent = "ONLINE";
+                document.getElementById("mcpBadge").className = "pill active";
+                document.getElementById("mcpBadge").textContent = "CONNECTED";
+
+                const geminiBadge = document.getElementById("geminiBadge");
+                if (health.gemini) {
+                    geminiBadge.className = "pill active";
+                    geminiBadge.textContent = "READY (" + (health.model || "gemini") + ")";
+                } else {
+                    geminiBadge.className = "pill pending";
+                    geminiBadge.textContent = "NO API KEY";
+                }
+
+                // Render metrics
+                document.getElementById("total").textContent = status.total_tasks ?? 0;
+                document.getElementById("completed").textContent = status.completed ?? 0;
+                document.getElementById("pending").textContent = status.pending ?? 0;
+
+                renderTasks(tasks);
+
+            } catch (error) {
+                document.getElementById("tasks").textContent = "Unable to connect to NEXUS backend: " + error.message;
+                document.getElementById("backendStatus").innerHTML = '<span class="pill error">● Offline</span>';
+                document.getElementById("apiBadge").className = "pill error";
+                document.getElementById("apiBadge").textContent = "OFFLINE";
+                document.getElementById("mcpBadge").className = "pill error";
+                document.getElementById("mcpBadge").textContent = "DISCONNECTED";
+            }
+        }
+
+        function renderTasks(tasks) {
+            const container = document.getElementById("tasks");
+            container.replaceChildren();
+
+            if (!Array.isArray(tasks) || tasks.length === 0) {
+                container.textContent = "No tasks stored in SQLite yet. Create one via Command Center.";
+                return;
+            }
+
+            tasks.forEach(task => {
+                const card = document.createElement("div");
+                card.className = "task";
+
+                const top = document.createElement("div");
+                top.style.display = "flex";
+                top.style.justifyContent = "space-between";
+                top.style.alignItems = "center";
+
+                const title = document.createElement("div");
+                title.className = "task-title";
+                title.textContent = task.title;
+
+                const badge = document.createElement("span");
+                badge.className = task.completed ? "pill active" : "pill pending";
+                badge.textContent = task.completed ? "✓ COMPLETED" : "● PENDING";
+
+                top.append(title, badge);
+
+                const desc = document.createElement("small");
+                desc.textContent = task.description || "No description provided.";
+
+                const idMeta = document.createElement("small");
+                idMeta.textContent = `ID: ${task.id} | Created: ${new Date(task.created_at).toLocaleString()}`;
+
+                const btnRow = document.createElement("div");
+                btnRow.style.marginTop = "8px";
+
+                if (!task.completed) {
+                    const compBtn = document.createElement("button");
+                    compBtn.className = "secondary btn-small";
+                    compBtn.textContent = "✓ Complete";
+                    compBtn.onclick = () => completeTask(task.id);
+                    btnRow.appendChild(compBtn);
+                }
+
+                const delBtn = document.createElement("button");
+                delBtn.className = "danger btn-small";
+                delBtn.textContent = "🗑 Delete (Sensitive)";
+                delBtn.onclick = () => requestDeleteTask(task.id);
+                btnRow.appendChild(delBtn);
+
+                card.append(top, desc, idMeta, btnRow);
+                container.appendChild(card);
+            });
+        }
+
+        async function completeTask(id) {
+            try {
+                await apiRequest("/api/complete/" + encodeURIComponent(id), { method: "POST" });
+                await refreshWorkspace();
+                await loadActivityLogs();
+            } catch (error) {
+                alert("Error completing task: " + error.message);
+            }
+        }
+
+        async function requestDeleteTask(id) {
+            try {
+                const res = await apiRequest("/api/delete/" + encodeURIComponent(id), { method: "POST" });
+                if (res.status === "approval_required") {
+                    alert(res.message);
+                    await loadApprovals();
+                } else {
+                    await refreshWorkspace();
+                }
+                await loadActivityLogs();
+            } catch (error) {
+                alert("Delete request failed: " + error.message);
+            }
+        }
+
+        // ==============================
+        // MEETING INTELLIGENCE
+        // ==============================
+
+        async function summarizeMeeting() {
+            const transcript = document.getElementById("transcript").value.trim();
+            const btn = document.getElementById("summarizeBtn");
+            const resultDiv = document.getElementById("meetingResult");
+
+            if (!transcript) {
+                alert("Please enter a meeting transcript first.");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = "Analyzing Transcript...";
+
+            try {
+                const meeting = await apiRequest("/api/meetings/summarize", {
+                    method: "POST",
+                    body: JSON.stringify({ transcript })
+                });
+
+                resultDiv.replaceChildren();
+
+                // Summary
+                const sumBox = document.createElement("div");
+                sumBox.className = "item-box";
+                sumBox.innerHTML = `<strong>📝 Summary:</strong><p>${escapeHtml(meeting.summary)}</p>`;
+                resultDiv.appendChild(sumBox);
+
+                // Decisions
+                if (meeting.decisions && meeting.decisions.length > 0) {
+                    const decBox = document.createElement("div");
+                    decBox.className = "item-box";
+                    let decHtml = "<strong>🤝 Key Decisions:</strong><ul>";
+                    meeting.decisions.forEach(d => decHtml += `<li>${escapeHtml(d)}</li>`);
+                    decHtml += "</ul>";
+                    decBox.innerHTML = decHtml;
+                    resultDiv.appendChild(decBox);
+                }
+
+                // Action Items
+                if (meeting.action_items && meeting.action_items.length > 0) {
+                    const actBox = document.createElement("div");
+                    actBox.className = "item-box";
+                    actBox.innerHTML = "<strong>✅ Action Items (Click to convert into MCP tasks):</strong>";
+
+                    meeting.action_items.forEach((item, idx) => {
+                        const row = document.createElement("div");
+                        row.className = "action-flex item-box";
+                        row.style.background = "#080f1d";
+
+                        const info = document.createElement("div");
+                        info.innerHTML = `<strong>${escapeHtml(item.title)}</strong><br><small class="muted">${escapeHtml(item.description || "")} (${escapeHtml(item.assignee || "Unassigned")})</small>`;
+
+                        const convertBtn = document.createElement("button");
+                        convertBtn.className = "btn-small";
+                        convertBtn.textContent = "+ Convert to Task";
+                        convertBtn.onclick = async () => {
+                            convertBtn.disabled = true;
+                            convertBtn.textContent = "Converting...";
+                            try {
+                                await apiRequest("/api/meetings/action-to-task", {
+                                    method: "POST",
+                                    body: JSON.stringify({ title: item.title, description: item.description || "" })
+                                });
+                                convertBtn.textContent = "✓ Converted";
+                                convertBtn.style.background = "#1b4b3b";
+                                await refreshWorkspace();
+                                await loadActivityLogs();
+                            } catch (e) {
+                                alert("Failed to convert task: " + e.message);
+                                convertBtn.disabled = false;
+                                convertBtn.textContent = "+ Convert to Task";
+                            }
+                        };
+
+                        row.append(info, convertBtn);
+                        actBox.appendChild(row);
+                    });
+
+                    resultDiv.appendChild(actBox);
+                }
+
+                await loadActivityLogs();
+
+            } catch (error) {
+                alert("Meeting intelligence failed: " + error.message);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "Extract Decisions & Action Items";
+            }
+        }
+
+        // ==============================
+        // APPROVALS WORKFLOW
+        // ==============================
+
+        async function loadApprovals() {
+            try {
+                const list = await apiRequest("/api/approvals?status=pending");
+                const container = document.getElementById("approvalsList");
+                container.replaceChildren();
+
+                if (!Array.isArray(list) || list.length === 0) {
+                    container.textContent = "No pending approval requests. Sensitive operations are safely gated.";
+                    return;
+                }
+
+                list.forEach(appr => {
+                    const box = document.createElement("div");
+                    box.className = "item-box";
+
+                    const top = document.createElement("div");
+                    top.style.display = "flex";
+                    top.style.justifyContent = "space-between";
+                    top.innerHTML = `<strong>Request ID: ${escapeHtml(appr.id)}</strong><span class="pill pending">PENDING APPROVAL</span>`;
+
+                    const desc = document.createElement("p");
+                    desc.innerHTML = `Operation: <code>${escapeHtml(appr.operation)}</code><br>Details: ${escapeHtml(JSON.stringify(appr.details))}`;
+
+                    const btnRow = document.createElement("div");
+                    const appBtn = document.createElement("button");
+                    appBtn.className = "btn-small";
+                    appBtn.textContent = "✓ Approve & Execute";
+                    appBtn.onclick = async () => {
+                        try {
+                            const res = await apiRequest(`/api/approvals/${encodeURIComponent(appr.id)}/approve`, { method: "POST" });
+                            alert("Operation approved: " + JSON.stringify(res.execution_result || res.approval));
+                            await loadApprovals();
+                            await refreshWorkspace();
+                            await loadActivityLogs();
+                        } catch (e) {
+                            alert("Approval failed: " + e.message);
+                        }
+                    };
+
+                    const rejBtn = document.createElement("button");
+                    rejBtn.className = "danger btn-small";
+                    rejBtn.textContent = "✗ Reject";
+                    rejBtn.onclick = async () => {
+                        try {
+                            await apiRequest(`/api/approvals/${encodeURIComponent(appr.id)}/reject`, { method: "POST" });
+                            await loadApprovals();
+                            await loadActivityLogs();
+                        } catch (e) {
+                            alert("Rejection failed: " + e.message);
+                        }
+                    };
+
+                    btnRow.append(appBtn, rejBtn);
+                    box.append(top, desc, btnRow);
+                    container.appendChild(box);
+                });
+
+            } catch (e) {
+                console.error("Failed to load approvals", e);
+            }
+        }
+
+        // ==============================
+        // PERSISTENT ACTIVITY LOGS
+        // ==============================
+
+        async function loadActivityLogs() {
+            try {
+                const logs = await apiRequest("/api/activity?limit=30");
+                const container = document.getElementById("activity");
+                container.replaceChildren();
+
+                if (!Array.isArray(logs) || logs.length === 0) {
+                    container.innerHTML = '<div class="log">No activity recorded yet in SQLite.</div>';
+                    return;
+                }
+
+                logs.forEach(item => {
+                    const entry = document.createElement("div");
+                    entry.className = "log";
+                    const time = new Date(item.timestamp).toLocaleTimeString();
+                    const statusColor = item.status === "success" ? "#48e59b" : (item.status === "pending_approval" ? "#f7b955" : "#f7556b");
+
+                    entry.innerHTML = `
+                        <div style="display:flex; justify-content:space-between;">
+                            <strong style="color:${statusColor}">${escapeHtml(item.tool_name)}</strong>
+                            <small class="muted">${time}</small>
+                        </div>
+                        <small style="color:#8df3df">${escapeHtml(item.arguments || "{}")}</small><br>
+                        <small class="muted">${escapeHtml(item.result || "")}</small>
+                    `;
+                    container.appendChild(entry);
+                });
+
+            } catch (e) {
+                console.error("Failed to load activity logs", e);
+            }
+        }
+
+        function escapeHtml(str) {
+            if (!str) return "";
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        // Keyboard shortcut: Ctrl+Enter / Cmd+Enter executes command
+        document.getElementById("command").addEventListener("keydown", event => {
+            if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
+                sendCommand();
+            }
+        });
+
+        // Initialize UI
+        refreshWorkspace();
+        loadApprovals();
+        loadActivityLogs();
+    </script>
+
+</body>
+
+</html>
